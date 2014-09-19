@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<p>You searched for: <strong>{{ query }}</strong></p>
+
+{% if books %}
+    <p>Found {{ books|length }} book{{ books|pluralize }}.</p>
+    <ul>
+        {% for book in books %}
+            <li><a href="../books/{{ book.id }}">{{ book }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No books matched your search criteria.</p>
+{% endif %}
+
+{% if authors %}
+    <p>Found {{ authors|length }} author{{ authors|pluralize }}.</p>
+    <ul>
+        {% for author in authors %}
+            <li><a href="../authors/{{ author.id }}">{{ author }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No authors matched your search criteria.</p>
+{% endif %}
+
+{% endblock %}

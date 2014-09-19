@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h2>Book detail page</h2>
+    {{ book }}
+    {% for auth in book.author_set.all %}
+        {{ auth }}
+    {% endfor %}
+    <br/>
+    <a href="/book/add/">Add</a>
+    <a href="/book/{{ book.id }}/update/">Edit</a>
+    <a href="/book/{{ book.id }}/delete/">Delete</a><br/>
+{% endblock %}
+
+

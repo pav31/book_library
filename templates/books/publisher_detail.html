@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h2>Publisher detail page</h2>
+    {{ publisher }}
+    <br/>
+
+    {% for book in publisher.book_set.all %}
+        {{ book }}<br/>
+    {% endfor %}
+{% endblock %}
+
+

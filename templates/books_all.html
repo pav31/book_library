@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+
+{% for field,value in data.items %}
+
+    <p>{{ field }} : {{value.label}}: {{value.fieldvalue}}</p>
+    <br/>
+
+{% endfor %}
+
+{% endblock %}
+
