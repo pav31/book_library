@@ -72,13 +72,24 @@ WSGI_APPLICATION = 'new_library.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "libdb",
+#         "USER": "pav31",
+#         "PASSWORD": "123qweasd",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+# Production
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "libdb",
-        "USER": "pav31",
-        "PASSWORD": "123qweasd",
-        "HOST": "localhost",
+        "NAME": "dfici9mv56nu8m",
+        "USER": "ertrxgcdbcqbxz",
+        "PASSWORD": "Npv72ATon69P9RsB3MagPCIVb6",
+        "HOST": "postgres://ertrxgcdbcqbxz:Npv72ATon69P9RsB3MagPCIVb6@ec2-107-20-245-187.compute-1.amazonaws.com:5432/dfici9mv56nu8m",
         "PORT": "5432",
     }
 }
