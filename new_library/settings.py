@@ -48,6 +48,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # custom
+    'herokuapp',
+    'south',
     'registration',
     'django_extensions',
     'debug_toolbar',
@@ -86,10 +88,10 @@ WSGI_APPLICATION = 'new_library.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "dfici9mv56nu8m",
-        "USER": "ertrxgcdbcqbxz",
-        "PASSWORD": "Npv72ATon69P9RsB3MagPCIVb6",
-        "HOST": "ec2-107-20-245-187.compute-1.amazonaws.com",
+        "NAME": "libdb",
+        "USER": "pav31",
+        "PASSWORD": "123qweasd",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
@@ -141,8 +143,8 @@ DEFAULT_FROM_EMAIL = 'info@google.ru'
 # PRODUCTION
 
 # Parse database configuration from $DATABASE_URL
-# import dj_database_url
-# DATABASES['default'] = dj_database_url.config()
+import dj_database_url
+DATABASES['default'] = dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
