@@ -89,7 +89,7 @@ DATABASES = {
         "NAME": "dfici9mv56nu8m",
         "USER": "ertrxgcdbcqbxz",
         "PASSWORD": "Npv72ATon69P9RsB3MagPCIVb6",
-        "HOST": "postgres://ertrxgcdbcqbxz:Npv72ATon69P9RsB3MagPCIVb6@ec2-107-20-245-187.compute-1.amazonaws.com:5432/dfici9mv56nu8m",
+        "HOST": "ec2-107-20-245-187.compute-1.amazonaws.com",
         "PORT": "5432",
     }
 }
