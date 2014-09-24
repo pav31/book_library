@@ -9,9 +9,12 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -48,8 +51,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # custom
-    'herokuapp',
-    'south',
     'registration',
     'django_extensions',
     'debug_toolbar',
@@ -72,29 +73,7 @@ ROOT_URLCONF = 'new_library.urls'
 WSGI_APPLICATION = 'new_library.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": "libdb",
-#         "USER": "pav31",
-#         "PASSWORD": "123qweasd",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-# Production
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "libdb",
-        "USER": "pav31",
-        "PASSWORD": "123qweasd",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+
 
 
 # Internationalization
@@ -142,22 +121,19 @@ DEFAULT_FROM_EMAIL = 'info@google.ru'
 
 # PRODUCTION
 
+# # Allow all host hosts/domain names for this site
+ALLOWED_HOSTS = ['*']
+
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] = dj_database_url.config()
+
+DATABASES = {'default': dj_database_url.config()}
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
-ALLOWED_HOSTS = ['*']
-
-# Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+# try to load local_settings.py if it exists
+try:
+    from local_settings import *
+except Exception as e:
+    pass
