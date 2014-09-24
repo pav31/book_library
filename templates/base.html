@@ -1,71 +1,68 @@
 <!DOCTYPE html>
 <html>
-  {% load i18n %}
+{% load i18n %}
 
 
 <head>
     <meta charset="utf-8"/>
     <title>Library</title>
 
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css" >
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
 
-    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js" ></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 
 </head>
-  <body>
+<body>
 
-  {% block navebar %}
- <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Brand</a>
-    </div>
+{% block navebar %}
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Brand</a>
+            </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home</a></li>
-        <li class="active"><a href="/books/">Books</a></li>
-        <li class="active"><a href="/authors/">Authors</a></li>
-        <li class="active"><a href="/publishers/">Publishers</a></li>
-        <li class="active"><a href="/author/add/">Add Author</a></li>
-        <li class="active"><a href="/search/">Find</a></li>
-        <li class="active"><a href="/admin/">Admin panel</a></li>
-      </ul>
-      <form class="navbar-form navbar-left" role="search" method="get">
-        <div class="form-group">
-          <input type="text" class="form-control" name="query" placeholder="Search">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">Home</a></li>
+                    <li class="active"><a href="/books/">Books</a></li>
+                    <li class="active"><a href="/authors/">Authors</a></li>
+                    <li class="active"><a href="/publishers/">Publishers</a></li>
+                    <li class="active"><a href="/author/add/">Add Author</a></li>
+                    <li class="active"><a href="/search/">Find</a></li>
+                    <li class="active"><a href="/admin/">Admin panel</a></li>
+                </ul>
+                <div class="navbar-form navbar-right">
+                    {% if user.is_authenticated %}
+                        {% trans "Logged in" %}: {{ user.username }}
+                        <a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a>
+
+                    {% else %}
+                        <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a> |
+                        <a href="/register/">{% trans "Register" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+{#                <form class="navbar-form navbar-left" role="search" method="get">#}
+{#                    <div class="form-group">#}
+{#                        <input type="text" class="form-control" name="query" placeholder="Search">#}
+{#                    </div>#}
+{#                    <button type="submit" class="btn btn-default" name="submit">Submit</button>#}
+{#                </form>#}
+            <!-- /.navbar-collapse -->
         </div>
-        <button type="submit" class="btn btn-default" name="submit">Submit</button>
-      </form>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+        <!-- /.container-fluid -->
+    </nav>
 {% endblock %}
-
-<div id="header">
-    {% block header %}
-
-
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }}
-        (<a href="{% url 'auth_logout' %}">{% trans "Log out" %}</a> |
-        <a href="{% url 'auth_password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'auth_login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <hr />
-    {% endblock %}
-</div>
 
 
 <div class="input-group">
     {% block content %}{% endblock %}
 </div>
 
-  {% block search %}
-  {% endblock %}
+{% block search %}
+{% endblock %}
 
-  </body>
+</body>
 </html>

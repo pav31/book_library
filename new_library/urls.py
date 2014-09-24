@@ -38,12 +38,13 @@ urlpatterns = patterns('',
     url(r'^search/$', views.search),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^register/$', views.MyRegistrationView.as_view(), name='registration_register',),
 
     # Edit Authors
-    url(r'author/add/$', login_required(views.AuthorCreate.as_view()), name='author_add'),
+    url(r'author/add/$', login_required(views.AuthorCreate.as_view(success_url='/authors')), name='author_add'),
     url(r'author/(?P<pk>\d+)/update/$', login_required(views.AuthorUpdate.as_view(success_url='/authors')), name='author_update',),
     url(r'author/(?P<pk>\d+)/delete/$', login_required(views.AuthorDelete.as_view(success_url='/authors')), name='author_delete'),
-    url(r'book/add/$', login_required(views.BookCreate.as_view()), name='book_add'),
+    url(r'book/add/$', login_required(views.BookCreate.as_view(success_url='/books')), name='book_add'),
     url(r'book/(?P<pk>\d+)/update/$', login_required(views.BookUpdate.as_view(success_url='/books')), name='book_update'),
     url(r'book/(?P<pk>\d+)/delete/$', login_required(views.BookDelete.as_view(success_url='/books')), name='book_delete'),
 )

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse_lazy
 # from django.core.urlresolvers import reverse
 from models import Book, Author, Publisher
 from forms import AuthorForm
-
+from registration.backends.simple.views import RegistrationView
 
 
 class AuthorCreate(CreateView):
@@ -72,36 +72,32 @@ class PublisherDetailView(DetailView):
 
 
 class AuthorDetailView(DetailView):
-    queryset = Author.objects.all()
+    model = Author
+    # queryset = Author.objects.all()
 
     def get_object(self):
-        # Call the superclass
         object = super(AuthorDetailView, self).get_object()
-        # Record the last accessed date
-        # object.last_accessed = datetime.datetime.now()
-        object.save()
-        # Return the object
+        # object.save()
         return object
 
 
 class BookDetailView(DetailView):
-    queryset = Book.objects.all()
+    model = Book
 
     def get_object(self):
-        # Call the superclass
         object = super(BookDetailView, self).get_object()
-        # Record the last accessed date
-        # object.last_accessed = datetime.datetime.now()
-        object.save()
-        # Return the object
         return object
 
+class MyRegistrationView(RegistrationView):
+    def get_success_url(self, request, user):
+        return "/"
 
-def about_pages(request, page):
-    try:
-        return direct_to_template(request, template="about/%s.html" % page)
-    except TemplateDoesNotExist:
-        raise Http404()
+#
+# def about_pages(request, page):
+#     try:
+#         return direct_to_template(request, template="about/%s.html" % page)
+#     except TemplateDoesNotExist:
+#         raise Http404()
 
 
 def index(request):
