@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
 
+
 {% block content %}
-<p>{% trans "Logged out" %}</p>
+    <p>
+        <a href="{% url 'auth_login' %}" class="btn btn-success">{% trans "Log in" %}</a>
+        <a href="/register/" class="btn btn-success">{% trans "Register" %}</a>
+    </p>
 {% endblock %}

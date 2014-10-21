@@ -2,31 +2,35 @@
 {% load i18n %}
 
 {% block content %}
-    <table border="2">
-            <td><h4><a href="/authors/">Authors</a></h4></td>
-            <td><h4><a href="/books/">Books</a></h4></td>
-            <td><h4><a href="/publishers/">Publishers</a></h4></td>
-        {% for author in object_list %}
+    <h3>Authors</h3>
+    <table class="table table-bordered table-hover ">
+        <thead>
         <tr>
-            <td>
-                <a href="/authors/{{ author.id }}/">{{ author }}</a>
-            </td>
-            <td>
-            {% for book in author.book_set.all %}
-                <a href="/books/{{ book.id }}/">{{ book }}</a>
-                {% if not forloop.last %},{% endif %}
-            </td>
-            <td>
-            <a href="/publishers/{{ book.publisher.id }}/">{{ book.publisher }}</a>
-
-
-            </td>
-            {% endfor %}
-
+            <th><a href="/authors/">Authors</a></th>
+            <th><a href="/books/">Books</a></th>
         </tr>
+        </thead>
+        <tbody>
+        {% for author in object_list %}
+            <tr>
+                <td>
+                    <a href="/authors/{{ author.id }}/">{{ author }}</a>
+                </td>
+                <td>
+                    {% for book in author.book_set.all %}
+                        <a href="/books/{{ book.id }}/">{{ book }}</a>{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         {% endfor %}
+        </tbody>
     </table>
-    <a href="/author/add/">Add</a>
+
+    <p>
+        <a href="/books/add" class="btn btn-success">Add book</a>
+        <a href="/authors/add" class="btn btn-success">Add author</a>
+    </p>
+
 
 {% endblock %}
 

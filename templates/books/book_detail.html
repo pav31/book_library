@@ -2,14 +2,27 @@
 {% load i18n %}
 
 {% block content %}
-    <h2>Book detail page</h2>
-    {{ book }}
-    {% for auth in book.author_set.all %}
-        {{ auth }}
-    {% endfor %}
-    <br/>
-    <a href="/book/{{ book.id }}/update/">Edit</a>
-    <a href="/book/{{ book.id }}/delete/">Delete</a><br/>
+    <h3>Book "{{ book.title }}"</h3>
+
+    <table class="table table-bordered table-hover ">
+        <thead>
+        <tr>
+            <th><a href="/books/">Books</a></th>
+            <th><a href="/authors/">Authors</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a href="/books/{{ book.id }}/update/">{{ book.title }}</a></td>
+            <td>
+                {% for auth in book.authors_set.all %}
+                    <a href="/authors/{{ auth.id }}/update/">{{ auth }}</a>
+                {% endfor %}
+        </tr>
+
+        </tbody>
+    </table>
+
+    <a href="/books/{{ book.id }}/update/" class="btn btn-primary">Edit</a>
+    <a href="/books/{{ book.id }}/delete/" class="btn btn-danger">Delete</a>
 {% endblock %}
-
-

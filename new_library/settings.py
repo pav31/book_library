@@ -7,6 +7,7 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
@@ -15,6 +16,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -34,6 +37,12 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
+
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+  'django.core.context_processors.request',
+)
+
 #
 # STATICFILES_FINDERS = (
 #     "django.contrib.staticfiles.finders.FileSystemFinder",
@@ -43,6 +52,7 @@ TEMPLATE_LOADERS = (
 # Application definition
 
 INSTALLED_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +64,8 @@ INSTALLED_APPS = (
     'registration',
     'django_extensions',
     'debug_toolbar',
+    'bootstrap_toolkit',
+    'south',
 
     # apps
     'books',
@@ -71,9 +83,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'new_library.urls'
 
 WSGI_APPLICATION = 'new_library.wsgi.application'
-
-
-
 
 
 # Internationalization
@@ -107,7 +116,9 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
 
-LOGIN_REDIRECT_URL = '/admin'
+
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/accounts/login/'
 
 
 ACCOUNT_ACTIVATION_DAYS = 2

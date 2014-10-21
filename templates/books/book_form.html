@@ -1,0 +1,82 @@
+{#{% extends "base.html" %}#}
+{#{% load i18n %}#}
+{##}
+{#{% block content %}#}
+{#<h2>Create Book</h2>#}
+{#<form action="" method="post">#}
+{#    {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#    <br/>#}
+{#    <input type="submit" value="Submit" />#}
+{#</form>#}
+{#{% endblock %}#}
+
+
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_toolkit %}
+
+{% block content %}
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectFilter2.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}admin/js/SelectBox.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/widgets.css"/>
+    {#<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/base.css"/>#}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css"/>
+
+    <form action="" method="post" class="form-group">{% csrf_token %}
+        <fieldset>
+            <legend>Book form</legend>
+            <div class="form-group">
+                <label class="control-label">Title</label>
+
+                <div class="form-group" style="margin-top: 4px">
+                    {{ form.title }}
+                    <script type="text/javascript">addEvent(window, "load", function (e) {
+                        SelectFilter.init("id_authors", "authors", 0, "/static/admin/");
+                    });</script>
+                    <a href="/authors/add/" id="add_id_authors" onclick="return showAddAnotherPopup(this);">
+                        <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"></a>
+                </div>
+                <!-- Button trigger modal -->
+                <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    Launch demo modal
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                            </div>
+                            <div class="modal-body">
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{ form.authors }}<br/>
+            </div>
+
+        </fieldset>
+        <div class="form-actions">
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+    </form>
+
+{% endblock %}

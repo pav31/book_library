@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Publisher, Author, Book, AuthorBook
+from models import Author, Book, AuthorBook
 
 
 class AuthorBookInline(admin.TabularInline):
@@ -13,14 +13,11 @@ class AuthorAdmin(admin.ModelAdmin):
     inlines = [AuthorBookInline,]
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'publisher', 'publication_date')
+    list_display = ('title',)
     filter_horizontal = ('authors',)
     inlines = [AuthorBookInline,]
 
-class PublisherAdmin(admin.ModelAdmin):
-    list_display = ['name', 'address', 'city', 'state_province', 'country', 'website',]
 
-admin.site.register(Publisher, PublisherAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Book, BookAdmin)
 

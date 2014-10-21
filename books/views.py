@@ -1,14 +1,18 @@
 import datetime
+from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.shortcuts import get_object_or_404, render, render_to_response
-from django.http import HttpResponseRedirect, HttpResponse
-from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import DetailView
 from django.core.urlresolvers import reverse_lazy
-# from django.core.urlresolvers import reverse
-from models import Book, Author, Publisher
+from models import Book, Author
 from forms import AuthorForm
 from registration.backends.simple.views import RegistrationView
+from django.forms.models import modelform_factory
+
+
+def index(request):
+    return render(request, 'index.html')
 
 
 class AuthorCreate(CreateView):
@@ -27,12 +31,21 @@ class AuthorDelete(DeleteView):
 
 
 class BookCreate(CreateView):
+    form = AuthorForm
     model = Book
-    fields = ['title', 'authors', 'publisher', 'publication_date']
+    form_class = modelform_factory(Book,
+                                   widgets={"authors": FilteredSelectMultiple(
+                                       verbose_name="authors",
+                                       is_stacked=True, )})
+    fields = ['title', 'authors']
 
 
 class BookUpdate(UpdateView):
     model = Book
+    form_class = modelform_factory(Book,
+                                   widgets={"authors": FilteredSelectMultiple(
+                                       verbose_name="authors",
+                                       is_stacked=True, )})
     fields = ['title', 'authors', 'publisher', 'publication_date']
 
 
@@ -41,43 +54,11 @@ class BookDelete(DeleteView):
     success_url = reverse_lazy('book-list')
 
 
-class PublisherDetailView(DetailView):
-
-    context_object_name = "publisher"
-    model = Publisher
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super(PublisherDetailView, self).get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['book_list'] = Book.objects.all()
-        return context
-
-#
-# class PublisherBookListView(ListView):
-#
-#     context_object_name = "book_list"
-#     template_name = "books/books_by_publisher.html"
-#
-#     def get_queryset(self):
-#         self.publisher = get_object_or_404(Publisher, name__iexact=self.args[0])
-#         return Book.objects.filter(publisher=self.publisher)
-#
-#     def get_context_data(self, **kwargs):
-#         # Call the base implementation first to get a context
-#         context = super(PublisherBookListView, self).get_context_data(**kwargs)
-#         # Add in the publisher
-#         context['publisher'] = self.publisher
-#         return context
-
-
 class AuthorDetailView(DetailView):
     model = Author
-    # queryset = Author.objects.all()
 
     def get_object(self):
         object = super(AuthorDetailView, self).get_object()
-        # object.save()
         return object
 
 
@@ -88,46 +69,17 @@ class BookDetailView(DetailView):
         object = super(BookDetailView, self).get_object()
         return object
 
+
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
         return "/"
-
-#
-# def about_pages(request, page):
-#     try:
-#         return direct_to_template(request, template="about/%s.html" % page)
-#     except TemplateDoesNotExist:
-#         raise Http404()
-
-
-def index(request):
-    return render(request, 'index.html')
-
-
-def books_all(request):
-    # data = serializers.serialize( "python", Book.objects.all())
-    return render_to_response('books_all.html',
-                          RequestContext(request, {'data': data,}))
-
-
-
-def add_author(request):
-    # if this is a POST request we need to process the form data
-    form = AuthorForm(request.POST or None)
-    # assert False,
-    authors = Author.objects.all()
-    if request.method == 'POST':
-        if form.is_valid():
-            form.instance.save()
-            return HttpResponseRedirect('/author_form/')
-
-    return render(request, 'books/author_form.html', {'form': form, 'authors': authors})
 
 
 def search(request):
     errors = []
     if request.GET.get('query'):
         query = request.GET['query']
+        # assert False, query
         if not query:
             errors.append('query is empty')
         elif len(query) > 10:
@@ -143,5 +95,4 @@ def search(request):
                            'authors': authors,
                            'query': query,
                           })
-    return render(request, 'search.html',
-                  {'errors': errors})
+    return render(request, 'search.html', {'errors': errors})
