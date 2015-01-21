@@ -2,7 +2,7 @@
 
 
 {% block content %}
-
+    <div class="container-fluid">
     {% if errors %}
         <ul>
             {% for error in errors %}
@@ -12,9 +12,12 @@
         <p style="color: red">enter query < 20 symbols</p>
     {% endif %}
 
-    <form class="navbar-form navbar-left" method="get">
-        <input name="q" type="text" class="form-control col-lg-8" placeholder="Search"/>
+    <form method="get">
+        <legend>Enter search query</legend>
+        <div class="col-xs-6">
+            <input name="query" type="text" class="form-control" placeholder="Search"/>
+        </div>
         {% csrf_token %}
-        <button type="submit" class="btn btn-default" name="submit">Submit</button>
+        <button type="submit" class="btn btn-info" name="submit">Submit</button>
     </form>
 {% endblock %}

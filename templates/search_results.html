@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>You searched for: <strong>{{ query }}</strong></p>
+    <p class="alert-info">You searched for: <span style="color: blue; font-weight: bolder">{{ query }}</span></p>
 
     {% if books %}
-        <p>Found {{ books|length }} book{{ books|pluralize }}.</p>
+        <p class="alert-success">Found {{ books|length }} book{{ books|pluralize }}.</p>
         <ul>
             {% for book in books %}
 
@@ -12,18 +12,18 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>No books matched your search criteria.</p>
+        <p class="alert-warning">No books matched your search criteria.</p>
     {% endif %}
 
     {% if authors %}
-        <p>Found {{ authors|length }} author{{ authors|pluralize }}.</p>
+        <p class="alert-success">Found <span style="color: blue; font-weight: bolder">{{ authors|length }}</span> author{{ authors|pluralize }}.</p>
         <ul>
             {% for author in authors %}
                 <li><a href="/authors/{{ author.id }}/">{{ author }}</a></li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No authors matched your search criteria.</p>
+        <p class="alert-warning">No authors matched your search criteria.</p>
     {% endif %}
 
 {% endblock %}
