@@ -21,20 +21,22 @@
 
     <form action="" method="post" class="form-group">{% csrf_token %}
         <fieldset>
-            <legend>Book form</legend>
+            <legend>Add new book</legend>
             <div class="form-group">
-                <label class="control-label">Title</label>
 
                 <div class="form-group" style="margin-top: 4px">
-                    {{ form.title }}
+
+                        <label class="control-label col-xs-4">Enter Book Title</label>
+                        <input id="id_title" class="form-control" maxlength="100" name="title" type="text">
                     <script type="text/javascript">addEvent(window, "load", function (e) {
                         SelectFilter.init("id_authors", "authors", 0, "/static/admin/");
                         $("div.selector").addClass("stacked");
                     });</script>
                     <a href="/authors/add/" id="add_id_authors" onclick="return showAddAnotherPopup(this);">
-                        <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"></a>
+                        <img src="/static/admin/img/icon_addlink.gif" width="10" height="10" alt="Add Another"> Add Author</a>
                 </div>
-                {{ form.authors }}<br/>
+                <p>Select author(s) from the list</p>
+                {{ form.authors }}
             </div>
 
         </fieldset>

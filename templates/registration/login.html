@@ -4,11 +4,21 @@
 {% block content %}
 
 <form method="post" action="." >
-  {% csrf_token %} 
-  {{ form.as_p }}
+  {% csrf_token %}
+    <div class="form-inline">
+    <label class="col-sm-3" for="id_username">Username:</label>
+    <input id="id_username" class="form-control" maxlength="254" name="username" type="text">
 
+    </div>
+    <div class="form-inline">
+
+    <label class="col-sm-3" for="id_password">Password:</label>
+    <input id="id_password" class="form-control" name="password" type="password">
+    </div>
+    <div class="form-group col-sm-offset-3">
   <input type="submit" class="btn btn-primary" value="{% trans 'Log in' %}" />
   <input type="hidden" name="next" value="{{ next }}" />
+    </div>
 </form>
 
 {% endblock %}

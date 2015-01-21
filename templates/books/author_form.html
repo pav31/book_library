@@ -6,35 +6,27 @@
 
     <form class="form-group" action="" method="post" id="author_form">{% csrf_token %}
         <fieldset>
-            <legend>Author form</legend>
-            <div class="form-group">
-                <label class="control-label">First name</label>
-
-                <div class="form-group">
-                    {{ form.first_name }}
-                </div>
-
-            </div>
-            <div class="form-group">
-                <label class="control-label">Last name</label>
-
-                <div class="">
-                    {{ form.last_name }}
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Email</label>
-
-                <div class="">
-                    {{ form.email }}
-                </div>
-
+            <legend>Add Author Information</legend>
+            <div class="form-inline">
+                <label class="control-label col-xs-3">First Name:</label>
+                <input class="form-control" id="id_first_name" maxlength="20" name="first_name" type="text">
             </div>
 
-            <div class="form-actions">
+            <div class="form-inline">
+                <label class="control-label col-xs-3">Last Name:</label>
+                <input class="form-control" id="id_last_name" maxlength="20" name="last_name" type="text">
+            </div>
 
+            <div class="form-inline">
+                <label class="control-label col-xs-3">Email:</label>
+
+                <input class="form-control" id="id_email" maxlength="75" name="email" type="email">
+
+            </div>
+            <div class="form-actions col-xs-offset-3">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+
         </fieldset>
     </form>
 
