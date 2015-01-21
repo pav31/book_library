@@ -27,12 +27,18 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container fixed">
     {% block navebar %}
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
                     <a class="navbar-brand" href="#"><img src="{% static "images/small_logo.png" %}" alt="logo"/></a>
                 </div>
 
@@ -62,16 +68,14 @@
         </nav>
     {% endblock %}
 
-    <div id="content" class="container">
-{#        <div class="container-fluid">#}
-            <div class="row">
-                <div class="col-xs-offset-1 col-xs-3">
-                    <img src="{% static "images/logo_ol.png" %}" alt="open library"/>
-                </div>
-                <div class="col-xs-6">
-                    {% block content %}
-                    {% endblock %}
-                </div>
+{#    <div id="content">#}
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{% static "images/logo_ol.png" %}" alt="open library"/>
+            </div>
+            <div class="col-md-7">
+                {% block content %}
+                {% endblock %}
             </div>
         </div>
 {#    </div>#}
