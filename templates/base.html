@@ -27,7 +27,15 @@
 
 </head>
 <body>
+
 <div class="container fixed">
+<div class="row">
+
+    {% block header %}
+        <img src="{% static "images/header3.jpg" %}" alt=""/>
+    {% endblock %}
+</div>
+
     {% block navebar %}
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">

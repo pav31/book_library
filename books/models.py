@@ -12,6 +12,7 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    # isbn = models.CharField(max_length=20, blank=True, null=True)
     title = models.CharField(max_length=100)
     authors = models.ManyToManyField(Author)
 
